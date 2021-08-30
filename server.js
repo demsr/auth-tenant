@@ -26,7 +26,6 @@ app.set("view engine", "ejs");
 
 app.use("/", LoginRouter);
 app.use("/auth", AuthRouter);
-app.use("/api/app", AppRouter);
 app.use("/api/user", UserRouter);
 app.use("/api/tenant", TenantRouter);
 

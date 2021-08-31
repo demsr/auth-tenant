@@ -5,21 +5,16 @@ const jwt = require("jsonwebtoken");
 const fs = require("fs");
 const redis = require("../db/Redis");
 
-const privateKEY = fs.readFileSync("./private.key", "utf8");
+const privateKEY = fs.readFileSync(process.env.PRIVATEKEY, "utf8");
 
 const Schema = new mongoose.Schema({
+  ref: mongoose.Types.ObjectId,
   name: String,
   tenant: mongoose.Types.ObjectId,
   permissions: [String],
 });
 
 Schema.methods.generateJWT = async function () {
-  // let u = await this.populate("permissions").execPopulate();
-
-  //const key = await redis.get(":tenant:" + this.tenant);
-
-  //if (!key) throw new Error("key does not exit");
-
   return jwt.sign(
     {
       id: this._id,
@@ -33,4 +28,4 @@ Schema.methods.generateJWT = async function () {
   );
 };
 
-module.exports = mongoose.model("User", Schema);
+module.exports = mongoose.model("RefUser", Schema, "RefUser");

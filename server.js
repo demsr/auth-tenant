@@ -9,7 +9,7 @@ const { nanoid } = require("nanoid");
 const mdb = require("./db/MongoDB");
 const redis = require("./db/Redis");
 
-const User = require("./models/RefUser");
+const User = require("./models/AuthSchema");
 
 app.use(express.json());
 app.use(
@@ -20,8 +20,6 @@ app.use(
 );
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
-
-app.set("view engine", "ejs");
 
 app.post("/accesstoken", (req, res) => {
   let { token } = req.body;
